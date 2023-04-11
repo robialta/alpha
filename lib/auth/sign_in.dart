@@ -42,7 +42,7 @@ class _LoginViewState extends State<LoginView> {
     return Center(
       child: UnconstrainedBox(
         child: LimitedBox(
-          maxWidth: 600,
+          maxWidth: 480,
           child: _isSignUpPage ? _buildSignupPage() : _buildLoginScreen(),
         ),
       ),
