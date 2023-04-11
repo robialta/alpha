@@ -80,11 +80,7 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(width: 8),
             GradientText(
               'Hi! Peter',
-              style: const TextStyle(
-                  fontSize: 22,
-                  height: 1,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'SpaceGrotesk'),
+              style: Theme.of(context).textTheme.headlineLarge,
               gradient: LinearGradient(colors: [
                 const Color(0xFFCFE1FD).withOpacity(0.9),
                 const Color(0xFFFFFDE1).withOpacity(0.9),
@@ -96,11 +92,7 @@ class DashboardScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32, left: 16),
           child: GradientText(
             'Your Total Balance \$1.000',
-            style: const TextStyle(
-                fontSize: 28,
-                height: 1,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'SpaceGrotesk'),
+            style: Theme.of(context).textTheme.headlineSmall,
             gradient: LinearGradient(colors: [
               const Color(0xFFCFE1FD).withOpacity(0.9),
               const Color(0xFFFFFDE1).withOpacity(0.9),
@@ -129,11 +121,7 @@ class DashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16, right: 8),
                 child: GradientText(
                   'Stocks Market',
-                  style: const TextStyle(
-                      fontSize: 22,
-                      height: 1,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'SpaceGrotesk'),
+                  style: Theme.of(context).textTheme.titleLarge,
                   gradient: LinearGradient(colors: [
                     const Color(0xFFCFE1FD).withOpacity(0.9),
                     const Color(0xFFFFFDE1).withOpacity(0.9),
@@ -261,18 +249,35 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 24, bottom: 16, left: 16),
-          child: GradientText(
-            'Transaction',
-            style: const TextStyle(
-                fontSize: 22,
-                height: 1,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'SpaceGrotesk'),
-            gradient: LinearGradient(colors: [
-              const Color(0xFFCFE1FD).withOpacity(0.9),
-              const Color(0xFFFFFDE1).withOpacity(0.9),
-            ]),
+          padding: const EdgeInsets.only(top: 24, right: 24, bottom: 24),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 8),
+                child: GradientText(
+                  'Latest Transactions',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  gradient: LinearGradient(colors: [
+                    const Color(0xFFCFE1FD).withOpacity(0.9),
+                    const Color(0xFFFFFDE1).withOpacity(0.9),
+                  ]),
+                ),
+              ),
+              const Spacer(),
+              AnimationClick(
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: grey200, borderRadius: BorderRadius.circular(24)),
+                  child: Image.asset(
+                    icKeyboardRight,
+                    width: 16,
+                    height: 16,
+                    color: grey1100,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         ListView.separated(

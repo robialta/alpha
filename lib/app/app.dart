@@ -1,4 +1,5 @@
 import 'package:alpha/auth/sign_in.dart';
+import 'package:alpha/common/constant/colors.dart';
 import 'package:alpha/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightMode(context),
       builder: (context, child) => ResponsiveWrapper.builder(child,
-          maxWidth: 1200,
           minWidth: 480,
           defaultScale: true,
           breakpoints: const [
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
             ResponsiveBreakpoint.autoScale(2460, name: '4K'),
           ],
-          background: Container(color: const Color(0xFFF5F5F5))),
+          background: Container(color: grey100)),
       home: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
