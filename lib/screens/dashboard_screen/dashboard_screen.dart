@@ -1,6 +1,7 @@
 import 'package:alpha/app/widget_support.dart';
 import 'package:alpha/widgets/sparkline_widget.dart';
 import 'package:alpha/widgets/stock_2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constant/colors.dart';
@@ -53,7 +54,9 @@ List<Map<String, dynamic>> transactions = [
 ];
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  DashboardScreen({super.key});
+
+  final User _user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +82,8 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             GradientText(
-              'Hi! Peter',
-              style: Theme.of(context).textTheme.headlineLarge,
+              'Hi! ${_user.displayName ?? _user.email}',
+              style: Theme.of(context).textTheme.headlineSmall,
               gradient: LinearGradient(colors: [
                 const Color(0xFFCFE1FD).withOpacity(0.9),
                 const Color(0xFFFFFDE1).withOpacity(0.9),

@@ -56,12 +56,11 @@ class _MyAppState extends State<MyApp> {
                 child: Text('Error'),
               );
             } else if (snapshot.hasData) {
-              // ignore: unused_local_variable
-              final user = snapshot.data;
-
               return const MainScreenWrapper();
             } else {
-              return const LoginView();
+              return LoginView(
+                key: UniqueKey(),
+              );
             }
           },
         ),

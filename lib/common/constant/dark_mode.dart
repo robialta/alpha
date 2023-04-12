@@ -18,6 +18,8 @@ ThemeData lightMode(BuildContext context) => ThemeData(
       ),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.white,
+        // filled: true,
+        iconColor: Colors.white,
         enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(15)),
