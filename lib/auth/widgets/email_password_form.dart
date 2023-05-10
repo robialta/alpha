@@ -13,7 +13,6 @@ class EmailPasswordForms extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     required this.passwordController2,
-    required this.goToSignInPage,
   });
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -21,7 +20,6 @@ class EmailPasswordForms extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordController2;
-  final Function goToSignInPage;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +111,8 @@ class EmailPasswordForms extends StatelessWidget {
                   text: ' Login',
                   style: kLoginOrSignUpTextStyle(),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => goToSignInPage,
+                    ..onTap = () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/login', (route) => false),
                 ),
               ],
             ),

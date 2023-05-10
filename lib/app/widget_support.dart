@@ -322,10 +322,9 @@ mixin AppWidget {
             ? Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: primary, borderRadius: BorderRadius.circular(24)),
+                    color: primary, borderRadius: BorderRadius.circular(20)),
                 child: Image.asset(
                   iconActive,
-                  width: 24,
                   height: 24,
                   color: corn1,
                   fit: BoxFit.cover,

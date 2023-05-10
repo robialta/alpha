@@ -1,5 +1,4 @@
 import 'package:alpha/auth/auth_constants.dart';
-import 'package:alpha/auth/sign_up.dart';
 import 'package:alpha/auth/widgets/password_field_widget.dart';
 import 'package:alpha/common/constant/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +21,6 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController phoneController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  bool _isSignUpPage = FirebaseAuth.instance.currentUser != null;
 
   @override
   void dispose() {
@@ -34,7 +32,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildMainScreen());
+    return Material(child: _buildMainScreen());
   }
 
   Widget _buildMainScreen() {
@@ -43,9 +41,7 @@ class _LoginViewState extends State<LoginView> {
         child: LimitedBox(
           maxWidth: 480,
           child: SingleChildScrollView(
-            child: _isSignUpPage
-                ? SignUpScreen(goToSignInPage: _goToSignInPage)
-                : _buildLoginScreen(),
+            child: _buildLoginScreen(),
           ),
         ),
       ),
@@ -164,23 +160,8 @@ class _LoginViewState extends State<LoginView> {
   }
 
   void _goToSignUpPage() {
-    phoneController.clear();
-    emailController.clear();
-    passwordController.clear();
-    passwordController2.clear();
-    setState(() {
-      _isSignUpPage = true;
-    });
-  }
-
-  void _goToSignInPage() {
-    phoneController.clear();
-    emailController.clear();
-    passwordController.clear();
-    passwordController2.clear();
-    setState(() {
-      _isSignUpPage = false;
-    });
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/register', (route) => false);
   }
 
   // Login Button
