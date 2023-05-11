@@ -301,14 +301,11 @@ mixin AppWidget {
     );
   }
 
-  static Widget divider(BuildContext context,
-      {double vertical = 24, Color color = grey600}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: vertical),
-      child: Divider(
-        thickness: 1,
-        color: color,
-      ),
+  static Widget divider({color, height}) {
+    return Divider(
+      thickness: 1,
+      height: height ?? 1,
+      color: color ?? grey300.withOpacity(0.3),
     );
   }
 

@@ -18,6 +18,7 @@ ThemeData lightMode(BuildContext context) => ThemeData(
       ),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.white,
+        hintStyle: TextStyle(color: Colors.grey.withOpacity(0.5)),
         // filled: true,
         iconColor: Colors.white,
         enabledBorder: OutlineInputBorder(

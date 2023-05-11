@@ -1,8 +1,6 @@
-import 'package:alpha/app/widget_support.dart';
 import 'package:alpha/common/constant/colors.dart';
-import 'package:alpha/common/constant/styles.dart';
-import 'package:alpha/common/widget/animation_click.dart';
 import 'package:alpha/common/widget/gradient_text.dart';
+import 'package:alpha/screens/transaction_screen/widgets/deposit_form.dart';
 import 'package:flutter/material.dart';
 
 class TransactionScreen extends StatefulWidget {
@@ -16,11 +14,17 @@ class _TransactionScreenState extends State<TransactionScreen>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
   int _currentIndex = 0;
+  late List<Widget> _screens;
 
   @override
   void initState() {
     _controller =
         TabController(length: 3, vsync: this, initialIndex: _currentIndex);
+    _screens = [
+      const DepositForm(),
+      _withdrawalForm(),
+      _withdrawalForm(),
+    ];
     super.initState();
   }
 
@@ -32,12 +36,12 @@ class _TransactionScreenState extends State<TransactionScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GradientText(
-            'Balance \$1.000',
-            style: const TextStyle(
-                fontSize: 36,
-                height: 1,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'SpaceGrotesk'),
+            'Transactionsr',
+            // style: const TextStyle(
+            //     fontSize: 36,
+            //     height: 1,
+            //     fontWeight: FontWeight.w700,
+            //     fontFamily: 'SpaceGrotesk'),
             gradient: LinearGradient(colors: [
               const Color(0xFFCFE1FD).withOpacity(0.9),
               const Color(0xFFFFFDE1).withOpacity(0.9),
@@ -52,6 +56,7 @@ class _TransactionScreenState extends State<TransactionScreen>
                 color: grey200,
                 border: Border.all(color: grey300)),
             child: TabBar(
+              isScrollable: false,
               onTap: (index) {
                 setState(() {
                   _currentIndex = index;
@@ -77,67 +82,7 @@ class _TransactionScreenState extends State<TransactionScreen>
           const SizedBox(
             height: 16,
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _controller,
-              children: [
-                _depositForm(),
-                _withdrawalForm(),
-                _withdrawalForm(),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _depositForm() {
-    return Container(
-      decoration: BoxDecoration(
-          color: grey200, borderRadius: BorderRadius.circular(24)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                'Test',
-                width: 40,
-                height: 40,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Test',
-                  style: title3(color: grey1100),
-                ),
-              )
-            ],
-          ),
-          AppWidget.divider(context,
-              vertical: 16, color: grey300.withOpacity(0.3)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Test',
-                style: body(color: grey1100),
-              ),
-              AnimationClick(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16), color: primary),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Text(
-                    'Payout',
-                    style: headline(color: grey1100),
-                  ),
-                ),
-              )
-            ],
-          )
+          Expanded(child: _screens.elementAt(_currentIndex))
         ],
       ),
     );
