@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppBarCpn extends StatelessWidget with PreferredSizeWidget {
+class AppBarCpn extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCpn(
       {Key? key,
       this.size,
