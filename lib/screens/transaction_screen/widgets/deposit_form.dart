@@ -23,7 +23,7 @@ class _DepositFormState extends State<DepositForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: grey200, borderRadius: BorderRadius.circular(24)),
       child: SingleChildScrollView(
