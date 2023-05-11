@@ -45,3 +45,4 @@ const String user = '${images}user@3x.png';
 const String icArrowUp = '${images}ic_arrow_up@3x.png';
 const String icArrowDown = '${images}ic_arrow_down@3x.png';
 const String arrowsOutSimple = '${images}arrows_out_simple@3x.png';
+const String deposit = '${images}deposit (1).png';

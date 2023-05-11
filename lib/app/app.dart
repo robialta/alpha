@@ -30,41 +30,102 @@ class _MyAppState extends State<MyApp> {
       title: 'Alpha',
       debugShowCheckedModeBanner: false,
       theme: lightMode(context),
-      builder: (context, child) => ResponsiveWrapper.builder(child,
-          minWidth: 480,
-          defaultScale: true,
-          breakpoints: const [
-            ResponsiveBreakpoint.resize(480, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-            ResponsiveBreakpoint.autoScale(2460, name: '4K'),
-          ],
-          background: Container(color: grey100)),
-      home: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        child: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Error'),
-              );
-            } else if (snapshot.hasData) {
-              return const MainScreenWrapper();
-            } else {
-              return LoginView(
-                key: UniqueKey(),
-              );
-            }
-          },
-        ),
+      builder: (context, child) => ResponsiveWrapper.builder(
+        child,
+        minWidth: 480,
+        maxWidth: 1100,
+        defaultScale: true,
+        breakpoints: const [
+          ResponsiveBreakpoint.resize(480, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          ResponsiveBreakpoint.autoScale(2460, name: '4K'),
+        ],
+        background: Container(color: grey100),
       ),
+      onGenerateRoute: (settings) {
+        // html.window.history.replaceState('data', 'title', settings.name);
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.light,
+            ),
+            child: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Error'),
+                  );
+                } else if (snapshot.hasData) {
+                  return const MainScreenWrapper();
+                } else {
+                  return LoginView(
+                    key: UniqueKey(),
+                  );
+                }
+              },
+            ),
+          ),
+        );
+      },
+      // routes: {
+      //   '/': (context) => AnnotatedRegion<SystemUiOverlayStyle>(
+      //         value: const SystemUiOverlayStyle(
+      //           statusBarColor: Colors.transparent,
+      //           statusBarIconBrightness: Brightness.dark,
+      //           statusBarBrightness: Brightness.light,
+      //         ),
+      //         child: StreamBuilder(
+      //           stream: FirebaseAuth.instance.authStateChanges(),
+      //           builder: (context, snapshot) {
+      //             if (snapshot.connectionState == ConnectionState.waiting) {
+      //               return const Center(child: CircularProgressIndicator());
+      //             } else if (snapshot.hasError) {
+      //               return const Center(
+      //                 child: Text('Error'),
+      //               );
+      //             } else if (snapshot.hasData) {
+      //               return MainScreenWrapper();
+      //             } else {
+      //               return LoginView(
+      //                 key: UniqueKey(),
+      //               );
+      //             }
+      //           },
+      //         ),
+      //       ),
+      // },
+      // home: AnnotatedRegion<SystemUiOverlayStyle>(
+      //   value: const SystemUiOverlayStyle(
+      //     statusBarColor: Colors.transparent,
+      //     statusBarIconBrightness: Brightness.dark,
+      //     statusBarBrightness: Brightness.light,
+      //   ),
+      //   child: StreamBuilder(
+      //     stream: FirebaseAuth.instance.authStateChanges(),
+      //     builder: (context, snapshot) {
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return const Center(child: CircularProgressIndicator());
+      //       } else if (snapshot.hasError) {
+      //         return const Center(
+      //           child: Text('Error'),
+      //         );
+      //       } else if (snapshot.hasData) {
+      //         return MainScreenWrapper();
+      //       } else {
+      //         return LoginView(
+      //           key: UniqueKey(),
+      //         );
+      //       }
+      //     },
+      //   ),
+      // ),
     );
   }
 }

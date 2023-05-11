@@ -301,14 +301,11 @@ mixin AppWidget {
     );
   }
 
-  static Widget divider(BuildContext context,
-      {double vertical = 24, Color color = grey600}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: vertical),
-      child: Divider(
-        thickness: 1,
-        color: color,
-      ),
+  static Widget divider({color, height}) {
+    return Divider(
+      thickness: 1,
+      height: height ?? 1,
+      color: color ?? grey300.withOpacity(0.3),
     );
   }
 
@@ -322,10 +319,9 @@ mixin AppWidget {
             ? Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: primary, borderRadius: BorderRadius.circular(24)),
+                    color: primary, borderRadius: BorderRadius.circular(20)),
                 child: Image.asset(
                   iconActive,
-                  width: 24,
                   height: 24,
                   color: corn1,
                   fit: BoxFit.cover,
