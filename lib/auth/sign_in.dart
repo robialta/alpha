@@ -1,11 +1,7 @@
 import 'package:alpha/auth/auth_constants.dart';
 import 'package:alpha/auth/widgets/password_field_widget.dart';
-import 'package:alpha/common/constant/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -173,7 +169,6 @@ class _LoginViewState extends State<LoginView> {
         height: 55,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(primary),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -182,31 +177,6 @@ class _LoginViewState extends State<LoginView> {
           ),
           onPressed: () async {
             // Validate returns true if the form is valid, or false otherwise.
-            if (_formKey.currentState!.validate()) {
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-              try {
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: emailController.text,
-                    password: passwordController.text);
-                if (context.mounted) Navigator.of(context).pop();
-              } on FirebaseAuthException catch (e) {
-                Navigator.of(context).pop();
-                showTopSnackBar(
-                  context,
-                  CustomSnackBar.error(
-                    message: e.message ??
-                        'Something went wrong. Please check your credentials and try again',
-                  ),
-                  displayDuration: const Duration(milliseconds: 4000),
-                );
-              }
-            }
           },
           child: const Text('Login'),
         ),

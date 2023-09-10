@@ -1,10 +1,6 @@
 import 'package:alpha/auth/auth_constants.dart';
-import 'package:alpha/common/constant/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class PhoneNameForm extends StatelessWidget {
   PhoneNameForm({
@@ -50,7 +46,7 @@ class PhoneNameForm extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
                             child: Text(
-                              'Please complete your registration for account ${FirebaseAuth.instance.currentUser!.email}',
+                              'Please complete your registration for account',
                               style: kLoginSubtitleStyle(),
                             ),
                           ),
@@ -127,7 +123,7 @@ class PhoneNameForm extends StatelessWidget {
                                         ),
                                       );
                                     }
-                                    await FirebaseAuth.instance.signOut();
+
                                     if (context.mounted) {
                                       Navigator.of(context).pop();
                                     }
@@ -158,7 +154,6 @@ class PhoneNameForm extends StatelessWidget {
         height: 55,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(primary),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -187,25 +182,6 @@ class PhoneNameForm extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   ),
                 );
-              }
-
-              try {
-                await FirebaseAuth.instance.currentUser
-                    ?.updateDisplayName(fullNameController.text);
-                if (context.mounted) Navigator.of(context).pop();
-                onDonde();
-              } on FirebaseAuthException catch (e) {
-                if (context.mounted) Navigator.of(context).pop();
-                if (context.mounted) {
-                  showTopSnackBar(
-                    context,
-                    CustomSnackBar.error(
-                      message: e.message ??
-                          'Something went wrong. Please check your credentials and try again',
-                    ),
-                    displayDuration: const Duration(milliseconds: 4000),
-                  );
-                }
               }
             }
           },

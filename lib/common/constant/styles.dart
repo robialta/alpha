@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../common/constant/colors.dart';
 
 FontWeight checkWeight(String weight) {
   switch (weight) {
@@ -25,7 +24,7 @@ TextStyle grotesk(double fontSize, double height,
       fontSize: fontSize,
       letterSpacing: letterSpacing,
       height: height / fontSize,
-      color: color ?? Theme.of(context!).color11,
+      // color: color ?? Theme.of(context!).color11,
       fontWeight: checkWeight(fontWeight),
       decoration: hasUnderLine ? TextDecoration.underline : TextDecoration.none,
       fontFamily: fontFamily ?? 'SpaceGrotesk');

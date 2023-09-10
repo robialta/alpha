@@ -1,4 +1,3 @@
-import 'package:alpha/common/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +12,6 @@ TextStyle kLoginTermsAndPrivacyStyle() =>
 
 TextStyle kLoginOrSignUpTextStyle() => GoogleFonts.ubuntu(
       fontWeight: FontWeight.w500,
-      color: primary,
     );
 
 TextStyle kTextFormFieldStyle() => const TextStyle(color: Colors.black);

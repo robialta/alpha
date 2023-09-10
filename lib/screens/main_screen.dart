@@ -1,14 +1,9 @@
+import 'package:alpha/common/constant/images.dart';
+import 'package:alpha/common/constant/styles.dart';
+import 'package:alpha/screens/rlease_screen/release_screen.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:alpha/app/routes.dart';
-import 'package:alpha/app/widget_support.dart';
-import 'package:alpha/auth/widgets/phone_name_form.dart';
-import 'package:alpha/common/constant/styles.dart';
-import 'package:alpha/common/widget/animation_click.dart';
-import 'package:alpha/common/widget/app_bar_cpn.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../common/constant/colors.dart';
-import '../../../common/constant/images.dart';
 
 class MainScreenWrapper extends StatefulWidget {
   const MainScreenWrapper({super.key});
@@ -35,131 +30,137 @@ class _MainScreenWrapperState extends State<MainScreenWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return FirebaseAuth.instance.currentUser?.displayName == null
-        ? PhoneNameForm(
-            goToSignInPage: () {},
-            onDonde: () {},
-          )
-        : Scaffold(
-            key: _scaffoldKey,
-            endDrawer: Drawer(
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: const EdgeInsets.all(16),
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.logout_outlined),
-                    title: const Text('Sign out'),
-                    onTap: () {
-                      showDialog<void>(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Are you sure to sign out'),
-                          actions: [
-                            ElevatedButton(
-                              onPressed: () async {
-                                await FirebaseAuth.instance.signOut();
-                                if (context.mounted) {
-                                  Navigator.of(context).pop();
-                                }
-                              },
-                              child: const Text('Sign out'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        centerTitle: false,
+        titleSpacing: 14,
+        title: Row(
+          children: [
+            Image.asset(
+              mainLogo,
+              width: 36,
             ),
-            appBar: AppBarCpn(
-              left: AnimationClick(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Image.asset(logoApp, width: 32, height: 32),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Text(
-                          'Alpha Hedge Fund',
-                          style: headline(color: Colors.white),
-                        )),
-                  ],
+            const SizedBox(
+              width: 12,
+            ),
+            const Text(
+              'Smart Royal Shell',
+              style: TextStyle(color: Colors.black87),
+            )
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 14),
+            child: DropdownButton(
+              value: 'English',
+              items: const [
+                DropdownMenuItem<String>(
+                  value: 'English',
+                  child: Text('English'),
                 ),
-              ),
-              right: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Image.asset(chatCircleText, width: 24, height: 24),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Image.asset(bellSimple, width: 24, height: 24),
-                  ),
-                  AnimationClick(
-                    function: () {
-                      _scaffoldKey.currentState?.openEndDrawer();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Image.asset(
-                        circlesFour,
-                        width: 24,
-                        height: 24,
-                        color: grey1100,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                DropdownMenuItem<String>(
+                  value: 'Germany',
+                  child: Text('Germany'),
+                ),
+              ],
+              onChanged: (val) {},
             ),
-            // body: AppRoutes.screenRoutes.firstWhere(
-            //     (element) => element.entries.first.key == _route)[_route],
-            body: AppRoutes.screenRoutes
-                .firstWhere((element) => element.name == _route)
-                .screen,
-
-            bottomNavigationBar: ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: BottomNavigationBar(
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                backgroundColor: grey300,
-                type: BottomNavigationBarType.fixed,
-                landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-                elevation: 0,
-                currentIndex:
-                    AppRoutes.getAll.indexOf(html.window.location.pathname!),
-                onTap: (value) {
-                  setState(() {
-                    _route = AppRoutes.screenRoutes[value].name;
-                    html.window.history.replaceState(_route, _route, _route);
-                  });
-                },
-                items: [
-                  AppWidget.createItemNav(
-                      context, houseSimple, houseSimple, 'Dashboard',
-                      hasContainer: true),
-                  AppWidget.createItemNav(context, timer, timer, 'Contract',
-                      hasContainer: true),
-                  AppWidget.createItemNav(
-                      context, cardholder, cardholder, 'Transaction',
-                      hasContainer: true),
-                  AppWidget.createItemNav(context, user, user, 'Account',
-                      hasContainer: true),
-                ],
-              ),
+          )
+        ],
+        backgroundColor: Colors.white,
+        elevation: 0.05,
+        toolbarHeight: 48,
+      ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: Drawer(
+        elevation: 0.05,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DrawerHeader(
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.primary),
+              child: const Text('Smart Royal Shell'),
             ),
-          );
+            ListTile(
+              leading: const Icon(Icons.move_up_rounded),
+              title: const Text('Release'),
+              onTap: () {
+                Navigator.of(context)
+                  ..pop()
+                  ..push(MaterialPageRoute(
+                      builder: (context) => const ReleaseScreen()));
+              },
+            ),
+            const ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.support_agent_rounded),
+              title: Text('Support Ticket'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.lock_reset),
+              title: Text('Change Password'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                  onPressed: () {},
+                  style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Colors.white),
+                      backgroundColor: MaterialStatePropertyAll(Colors.red)),
+                  child: const Text('Logout')),
+            )
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        // showSelectedLabels: false,
+        // showUnselectedLabels: false,
+        landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+        elevation: 0.05,
+        currentIndex: AppRoutes.getAll.indexOf(html.window.location.pathname!),
+        onTap: (value) {
+          if (AppRoutes.screenRoutes[value].name == 'menu') {
+            _scaffoldKey.currentState?.openEndDrawer();
+          } else {
+            setState(() {
+              _route = AppRoutes.screenRoutes[value].name;
+              html.window.history.replaceState(_route, _route, _route);
+            });
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.data_thresholding_outlined),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wallet),
+            label: 'Assets',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.branding_watermark),
+            label: 'Holds',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monetization_on),
+            label: 'Transactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
+        ],
+      ),
+      body: AppRoutes.screenRoutes
+          .firstWhere((element) => element.name == _route)
+          .screen,
+    );
   }
 }

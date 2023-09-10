@@ -1,4 +1,4 @@
-package com.example.alpha
+package com.royal.shell
 
 import io.flutter.embedding.android.FlutterActivity
 

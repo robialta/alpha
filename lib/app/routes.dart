@@ -1,6 +1,4 @@
-import 'package:alpha/auth/sign_in.dart';
-import 'package:alpha/auth/sign_up.dart';
-import 'package:alpha/screens/account_screen/account_screen.dart';
+import 'package:alpha/screens/assets_screen/assets_screen.dart';
 import 'package:alpha/screens/contract_screen/contract_screen.dart';
 import 'package:alpha/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:alpha/screens/transaction_screen/transaction_screen.dart';
@@ -8,28 +6,28 @@ import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String dashboard = '/dashboard';
-  static const String contract = '/contract';
+  static const String assets = '/assets';
+  static const String holds = '/schemas';
   static const String transactions = '/transactions';
-  static const String account = '/account';
+  static const String release = '/withdraw/history';
   static const String login = '/login';
   static const String register = '/register';
+  static const String menu = 'menu';
 
   static List<String> get getAll => [
         dashboard,
-        contract,
+        assets,
+        holds,
         transactions,
-        account,
-        login,
-        register,
+        menu,
       ];
 
   static List<ScreenRoute> screenRoutes = [
-    ScreenRoute(dashboard, DashboardScreen()),
-    ScreenRoute(contract, const ContractScreen()),
-    ScreenRoute(transactions, const TransactionScreen()),
-    ScreenRoute(account, const AccountScreen()),
-    ScreenRoute(login, const LoginView()),
-    ScreenRoute(register, const SignUpScreen()),
+    ScreenRoute(dashboard, const DashboardScreen()),
+    ScreenRoute(assets, const AssetsScreen()),
+    ScreenRoute(holds, const ContractScreen()),
+    ScreenRoute(transactions, const TransactionsScreen()),
+    ScreenRoute(menu, Container())
   ];
 }
 

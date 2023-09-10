@@ -1,5 +1,4 @@
 import 'package:alpha/auth/auth_constants.dart';
-import 'package:alpha/common/constant/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
@@ -47,7 +46,6 @@ class _PhoneVerificationState extends State<PhoneVerification> {
               cursorColor: Colors.white,
               otpPinFieldStyle: OtpPinFieldStyle(
                   textStyle: Theme.of(context).textTheme.titleLarge!,
-                  activeFieldBorderColor: primary,
                   defaultFieldBorderColor: Colors.white),
             ),
           ),
@@ -59,7 +57,6 @@ class _PhoneVerificationState extends State<PhoneVerification> {
               height: 55,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(primary),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -120,7 +117,6 @@ class _PhoneVerificationState extends State<PhoneVerification> {
               height: 55,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(primary),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),

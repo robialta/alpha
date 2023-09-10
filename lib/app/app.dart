@@ -1,13 +1,7 @@
-import 'package:alpha/auth/sign_in.dart';
-import 'package:alpha/common/constant/colors.dart';
+import 'package:alpha/common/constant/styles.dart';
 import 'package:alpha/screens/main_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-
-import '../../common/constant/dark_mode.dart';
 
 final GlobalKey<NavigatorState> navigatorKey =
     GlobalKey(debugLabel: 'Main Navigator');
@@ -27,137 +21,43 @@ class _MyAppState extends State<MyApp> {
     ]);
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'Alpha',
+      title: 'Smart Royal Shell',
       debugShowCheckedModeBanner: false,
-      theme: lightMode(context),
-      builder: (context, child) => ResponsiveWrapper.builder(
-        child,
-        minWidth: 480,
-        maxWidth: 1100,
-        defaultScale: true,
-        breakpoints: const [
-          ResponsiveBreakpoint.resize(480, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-          ResponsiveBreakpoint.autoScale(2460, name: '4K'),
-        ],
-        background: Container(color: grey100),
+      // theme: lightMode(context),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryScheme),
+        fontFamily: 'SpaceGrotesk',
       ),
-      onGenerateRoute: (settings) {
-        // html.window.history.replaceState('data', 'title', settings.name);
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
-              statusBarBrightness: Brightness.light,
-            ),
-            child: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Error'),
-                  );
-                } else if (snapshot.hasData) {
-                  return const MainScreenWrapper();
-                } else {
-                  return LoginView(
-                    key: UniqueKey(),
-                  );
-                }
-              },
-            ),
-          ),
-        );
-      },
-      // routes: {
-      //   '/': (context) => AnnotatedRegion<SystemUiOverlayStyle>(
-      //         value: const SystemUiOverlayStyle(
-      //           statusBarColor: Colors.transparent,
-      //           statusBarIconBrightness: Brightness.dark,
-      //           statusBarBrightness: Brightness.light,
-      //         ),
-      //         child: StreamBuilder(
-      //           stream: FirebaseAuth.instance.authStateChanges(),
-      //           builder: (context, snapshot) {
-      //             if (snapshot.connectionState == ConnectionState.waiting) {
-      //               return const Center(child: CircularProgressIndicator());
-      //             } else if (snapshot.hasError) {
-      //               return const Center(
-      //                 child: Text('Error'),
-      //               );
-      //             } else if (snapshot.hasData) {
-      //               return MainScreenWrapper();
-      //             } else {
-      //               return LoginView(
-      //                 key: UniqueKey(),
-      //               );
-      //             }
-      //           },
-      //         ),
-      //       ),
-      // },
-      // home: AnnotatedRegion<SystemUiOverlayStyle>(
-      //   value: const SystemUiOverlayStyle(
-      //     statusBarColor: Colors.transparent,
-      //     statusBarIconBrightness: Brightness.dark,
-      //     statusBarBrightness: Brightness.light,
-      //   ),
-      //   child: StreamBuilder(
-      //     stream: FirebaseAuth.instance.authStateChanges(),
-      //     builder: (context, snapshot) {
-      //       if (snapshot.connectionState == ConnectionState.waiting) {
-      //         return const Center(child: CircularProgressIndicator());
-      //       } else if (snapshot.hasError) {
-      //         return const Center(
-      //           child: Text('Error'),
-      //         );
-      //       } else if (snapshot.hasData) {
-      //         return MainScreenWrapper();
-      //       } else {
-      //         return LoginView(
-      //           key: UniqueKey(),
-      //         );
-      //       }
-      //     },
-      //   ),
-      // ),
+      home: const AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: MainScreenWrapper(),
+      ),
     );
   }
 }
 
-class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit() : super(AuthenticationInitState());
+const MaterialColor primaryScheme = MaterialColor(
+  primaryC,
+  <int, Color>{
+    50: Color(0xFFE0F2F1),
+    100: Color(0xFFB2DFDB),
+    200: Color(0xFF80CBC4),
+    300: Color(0xFF4DB6AC),
+    400: Color(0xFF26A69A),
+    500: Color(primaryC),
+    600: Color(0xFF00897B),
+    700: Color(0xFF00796B),
+    800: Color(0xFF00695C),
+    900: Color(0xFF004D40),
+  },
+);
 
-  Future<void> signIn(String email, String password) async {
-    emit(AuthenticationLoadingState());
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      emit(AuthenticationLoadedState(true));
-    } catch (e) {
-      emit(AuthenticationErrorState());
-    }
-  }
-
-  Future<void> logout() async {
-    await FirebaseAuth.instance.signOut();
-  }
-}
+const primaryC = 0xFF1142D7;
 
 abstract class AuthenticationState {
   AuthenticationState({this.isAuthenticated = false});
 
   final bool isAuthenticated;
-}
-
-class AuthenticationInitState extends AuthenticationState {
-  AuthenticationInitState()
-      : super(isAuthenticated: FirebaseAuth.instance.currentUser != null);
 }
 
 class AuthenticationLoadingState extends AuthenticationState {}

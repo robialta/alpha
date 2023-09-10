@@ -46,3 +46,5 @@ const String icArrowUp = '${images}ic_arrow_up@3x.png';
 const String icArrowDown = '${images}ic_arrow_down@3x.png';
 const String arrowsOutSimple = '${images}arrows_out_simple@3x.png';
 const String deposit = '${images}deposit (1).png';
+const String mainLogo = 'assets/images/srs/logo.png';
+const String logo46 = 'assets/images/srs/logo46.png';
